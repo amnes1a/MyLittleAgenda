@@ -1,0 +1,10 @@
+MANIFEST.in
+MyLittleAgenda.egg-info/PKG-INFO
+MyLittleAgenda.egg-info/SOURCES.txt
+MyLittleAgenda.egg-info/dependency_links.txt
+MyLittleAgenda.egg-info/requires.txt
+MyLittleAgenda.egg-info/top_level.txt
+flaskr/MyLittleAgenda.py
+flaskr/__init__.py
+flaskr/static/css/material.min.css
+flaskr/static/scripts/material.min.js

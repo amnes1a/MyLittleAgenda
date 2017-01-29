@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block body %}
+    <br>
+<div class="container-fluid">
+  <div class="row justify-content-md-center">
+    <div class="col-12 col-md-auto">
+
+        <table class="table table-striped" id="usersTable">
+  <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Phone number</th>
+        <th>Type</th>
+        <th colspan="2">Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for entry in entries %}
+    <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.name }}</td>
+        <td>{{ entry.last_name }}</td>
+        <td>{{ entry.address }}</td>
+        <td>{{ entry.email }}</td>
+        <td>{{ entry.phone_number }}</td>
+        <td>{{ entry.phone_type }}</td>
+        <td>
+            <button class="btn btn-primary">Edit</button>
+        </td>
+        <td>
+            <form action="{{ url_for('delete_entry') }}" method=post>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <input type="hidden" name="id_user" value={{ entry.id }}>
+            </form>
+        </td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+
+</table>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="editUser" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Edit user</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="{{ url_for('edit_entry') }}" method=post>
+            <div class="form-group">
+                <label for="name_edit">Name</label>
+                <input type="text" class="form-control" id="name_edit" name="name_edit">
+            </div>
+            <div class="form-group">
+                <label for="last_name_edit">Last name</label>
+                <input type="text" class="form-control" id="last_name_edit" name="last_name_edit">
+            </div>
+            <div class="form-group">
+                <label for="address_edit">Address</label>
+                <input type="text" class="form-control" id="address_edit" name="address_edit">
+            </div>
+            <div class="form-group">
+                <label for="email_edit">Email</label>
+                <input class="form-control" type="email" id="email_edit" name="email_edit">
+            </div>
+            <div class="form-group">
+                <label for="phone_number_edit">Phone number</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="phone_number_edit" name="phone_number_edit">
+                    <select class="form-control" id="phone_type_edit" name="phone_type_edit">
+                        <option value="Work">Work</option>
+                        <option value="Home">Home</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Edit user</button>
+            <input type="hidden" name="id_user" id="id_user" value="">
+        </div>
+        </form>
+
+        </div>
+      </div>
+  </div>
+</div>
+
+    <script>
+    $("table button").click(function() {
+        $("#editUser").modal()
+        var current = $(this).closest('tr').index();
+        var v = document.getElementById("usersTable").rows[current+1];
+        document.getElementById('id_user').value = v.cells[0].innerHTML;
+        document.getElementById('name_edit').value = v.cells[1].innerHTML;
+        document.getElementById('last_name_edit').value = v.cells[2].innerHTML;
+        document.getElementById('address_edit').value = v.cells[3].innerHTML;
+        document.getElementById('email_edit').value = v.cells[4].innerHTML;
+        document.getElementById('phone_number_edit').value = v.cells[5].innerHTML;
+        document.getElementById('phone_type_edit').value = v.cells[6].innerHTML;
+
+    });
+
+    </script>
+{% endblock %}

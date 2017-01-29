@@ -1,0 +1,5 @@
+# Special files to be included
+
+graft flaskr/templates
+graft flaskr/static
+include flaskr/schema.sql
